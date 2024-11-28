@@ -3,15 +3,23 @@ import numpy as np
 
 
 class SubmarineSim(swyft.Simulator):
-    def __init__(self):
+    def __init__(self, channels=1):
         super().__init__()
+        self.channels = channels
         self.transform_samples = swyft.to_numpy32
         self.freq_grid = np.linspace(0.5, 2.5, 100)
-        self.psd = self.PSD(self.freq_grid)
+        self.psd = np.array([self.PSD(self.freq_grid) for i in range(self.channels)])
         self.bounds = np.array([[0.5, 2.0], [0.0, 2 * np.pi], [0.1, 1.0]])
 
     def noise(self):
-        return np.random.normal(0.0, np.sqrt(self.psd))
+        return np.squeeze(
+            np.array(
+                [
+                    np.random.normal(0.0, np.sqrt(self.psd[i]))
+                    for i in range(self.channels)
+                ]
+            )
+        )
 
     def PSD(self, f):
         return 1.0 * f**0.0
@@ -21,13 +29,16 @@ class SubmarineSim(swyft.Simulator):
 
     def signal(self, theta):
         Amp, f0, T0 = theta
-        return np.sin(2 * np.pi * self.freq_grid / T0 + f0) / Amp
+        signal = np.sin(2 * np.pi * self.freq_grid / T0 + f0) / Amp
+
+        return np.squeeze(np.array([signal for i in range(self.channels)]))
 
     def xi_prior(self):
         return np.random.uniform(0.0, 1.0, 1)
 
     def get_data(self, noise, signal, xi):
         selection = np.random.uniform(0.0, 1.0) < xi
+
         if selection:
             return signal + noise
         else:
