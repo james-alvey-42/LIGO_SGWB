@@ -1,6 +1,0 @@
-﻿Amp	Amp
-f0	f0
-t0	t0
-tau	tau
-logprior__0*	\log\pi_\mathrm{0}
-loglike__sine_gaussian_likelihood*	\log\mathcal{L}_\mathrm{sine\ gaussian\ likelihood}
