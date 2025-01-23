@@ -58,8 +58,8 @@ def compute_ZN(s_obs, freq_grid, sigma):
 
 # Simulate multiple segments with changing s_obs
 def simulate_segments(num_segments, freq_grid, sigma, bounds, xi):
-    #ZS_list = []
-    #ZN_list = []
+    ZS_list = []
+    ZN_list = []
 
     for i in tqdm(range(num_segments)):
         Amp_true = np.random.uniform(bounds[0][0], bounds[0][1])

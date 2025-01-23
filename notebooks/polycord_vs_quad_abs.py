@@ -1,13 +1,10 @@
-
-#%%
-
 #%%
 import numpy as np
 from scipy.integrate import nquad
 import matplotlib.pyplot as plt
 import os
-import gc
 from tqdm import tqdm
+import subprocess
 
 # Sine-Gaussian in frequency domain
 def sine_gaussian_freq(f, Amp, f0, t0, tau):
@@ -65,7 +62,7 @@ bounds = [(0.1, 2), (0.5, 2.0), (0, 1), (0.1, 0.5)]  # Parameter bounds: [A, f0,
 freq_grid = np.linspace(0.5, 2.5, 100)
 
 sigma=1
-xi=0.8
+xi=0.4
 s_obs_list=[]
 Z_S_list=[]
 Z_N_list=[]
@@ -83,12 +80,6 @@ for i in tqdm(range(100)):
     Z_N_list.append(Z_N)
 print(np.log(Z_S_list),np.log(Z_N_list))
 
-
-import numpy as np
-from cobaya.run import run
-
-import os
-import subprocess
 
 def run_polychord_for_strain(index, s_obs):
     output_dir = os.path.join("outputs", f"sine_gaussian_{index + 1}")
@@ -212,3 +203,5 @@ print("Signal Evidences (Z_S):", Z_S_list)
 print("Noise Evidences (Z_N):", Z_N_list)
 
 
+
+# %%
