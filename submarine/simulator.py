@@ -8,7 +8,8 @@ class SubmarineSim(swyft.Simulator):
         self.channels = channels
         self.transform_samples = swyft.to_numpy32
         self.freq_grid = np.linspace(0.5, 2.5, 100)
-        self.psd = np.array([self.PSD(self.freq_grid) for i in range(self.channels)])
+        self.psd = np.array([self.PSD(self.freq_grid)
+                            for i in range(self.channels)])
         self.bounds = np.array([[0.5, 2.0], [0.0, 2 * np.pi], [0.1, 1.0]])
 
     def noise(self):

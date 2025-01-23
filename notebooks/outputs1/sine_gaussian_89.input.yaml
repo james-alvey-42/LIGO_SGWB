@@ -1,0 +1,30 @@
+likelihood:
+  sine_gaussian_likelihood:
+    external: true
+    input_params:
+    - Amp
+    - f0
+    - t0
+    - tau
+params:
+  Amp:
+    prior:
+      min: 0.1
+      max: 2.0
+  f0:
+    prior:
+      min: 0.5
+      max: 2.0
+  t0:
+    prior:
+      min: 0.0
+      max: 1.0
+  tau:
+    prior:
+      min: 0.1
+      max: 0.5
+sampler:
+  polychord:
+    nlive: 300
+    precision_criterion: 1.0e-05
+output: sine_gaussian_89
