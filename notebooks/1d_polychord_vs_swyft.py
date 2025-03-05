@@ -6,7 +6,7 @@ import swyft
 import sys
 from swyft.networks import OnlineStandardizingLayer, ResidualNetWithChannel
 sys.path.insert(0, "../submarine")
-import simulator2 as sim
+import simulator_1d as sim
 import data
 # %%
 
